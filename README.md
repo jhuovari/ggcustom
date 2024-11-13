@@ -14,7 +14,7 @@ To install `ggcustom` directly from GitHub, use the `devtools` package:
 install.packages("devtools")
 
 # Install ggcustom from GitHub
-devtools::install_github("yourusername/ggcustom")
+devtools::install_github("jhuovari/ggcustom")
 ```
 
 # Overview
