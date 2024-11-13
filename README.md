@@ -83,23 +83,32 @@ making it easy to expand with other organization-specific styles.
 # Examples
 
 ``` r
-
 # Scatter plot with VM theme and color scale
 ggplot(mtcars, aes(mpg, wt, color = factor(cyl))) +
   geom_point(size = 3) +
   scale_colour_vm() +
   theme_vm()
+```
 
+![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
+``` r
 # Bar plot with VM fill scale
 ggplot(mpg, aes(class, fill = class)) +
   geom_bar() +
   scale_fill_vm() +
   theme_vm()
-  
 ```
 
-Contributing Contributions are welcome! If you’d like to add new color
-palettes, themes, or functionality, please submit a pull request or open
-an issue.
+    ## Warning in ggcustom_pal(n, "vm"): n is greater than maximum number of colors in the vm palette. Colors are recycled
 
-License ggcustom is licensed under the MIT License.
+![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+
+# Contributing
+
+Contributions are welcome! If you’d like to add new color palettes,
+themes, or functionality, please submit a pull request or open an issue.
+
+# License
+
+ggcustom is licensed under the MIT License.

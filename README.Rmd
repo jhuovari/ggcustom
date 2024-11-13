@@ -82,24 +82,31 @@ The package is structured to allow additional color palettes and themes, making 
 
 # Examples
 
-```r
-
+```{r}
 # Scatter plot with VM theme and color scale
 ggplot(mtcars, aes(mpg, wt, color = factor(cyl))) +
   geom_point(size = 3) +
   scale_colour_vm() +
   theme_vm()
+```
 
+
+```{r}
 # Bar plot with VM fill scale
 ggplot(mpg, aes(class, fill = class)) +
   geom_bar() +
   scale_fill_vm() +
   theme_vm()
-  
+
 ```
 
-Contributing
+
+
+
+# Contributing
+
 Contributions are welcome! If you’d like to add new color palettes, themes, or functionality, please submit a pull request or open an issue.
 
-License
+# License
+
 ggcustom is licensed under the MIT License.
