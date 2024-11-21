@@ -29,7 +29,7 @@ theme_vm <- function(base_size = 12, base_family = "") {
       panel.grid.major.x = ggplot2::element_blank(),
       panel.border = ggplot2::element_blank(),
        strip.background = ggplot2::element_blank(),
-      axis.line.x.bottom = element_line(),
+      axis.line.x.bottom = ggplot2::element_line(),
       axis.line.x.top = ggplot2::element_line()
     )
 }

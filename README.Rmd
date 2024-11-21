@@ -31,7 +31,7 @@ The `ggcustom` package is designed to make it easy to apply consistent themes an
 
 Once the package is installed, you can load it with:
 
-```r
+```{r}
 
 library(ggcustom)
 
@@ -40,7 +40,7 @@ library(ggcustom)
 Color Scales
 The package includes custom color scales based on the VM color palette.
 
-```r
+```{r}
 
 library(ggplot2)
 
@@ -56,7 +56,7 @@ ggplot(dsamp, aes(carat, price, colour = clarity)) +
 
 You can also use the fill scale for bar plots or other filled geometries:
 
-```r
+```{r}
 
 ggplot(dsamp, aes(clarity, fill = clarity)) +
   geom_bar() +
@@ -68,12 +68,47 @@ ggplot(dsamp, aes(clarity, fill = clarity)) +
 
 The theme_vm function provides a customized ggplot2 theme based on theme_bw, with defaults that make use of the VM color palette.
 
-```r
+```{r}
 
 # Using the VM theme
 p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
 p + theme_vm()
 
+```
+
+### Setting Custom Theme and Palette with `set_gg()`
+
+The `set_gg()` function allows you to set a custom theme and palette for your `ggplot2` visualizations. Below is an example using the `theme_vm()` and the `vm` palette. For VM there is also shortcut `set_vm()`.
+
+```{r}
+
+
+# Example dataset
+data <- data.frame(
+  category = rep(letters[1:4], each = 3),
+  value = c(4, 3, 5, 2, 6, 7, 3, 5, 4, 6, 2, 7),
+  group = rep(1:3, times = 4)
+)
+
+# Define a ggplot object
+p <- ggplot(data, aes(x = category, y = value, colour = factor(group), group = group)) +
+  geom_line() +
+  geom_point()
+
+# Before setting custom theme and palette
+p
+
+# Set the VM theme and VM palette
+set_gg(theme_vm(), "vm")
+
+# Plot with VM theme and VM color palette
+p
+
+# Optionally, reset to the original theme and scales
+unset_gg()
+
+# Verify that the original theme and scales are restored
+p
 ```
 
 # Additional Palettes and Themes
