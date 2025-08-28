@@ -1,7 +1,7 @@
 Package: ggcustom
 Type: Package
 Title: Custom ggplot2 Themes and Scales
-Version: 0.1.0
+Version: 0.1.1
 Author: Janne Huovari [aut, cre]
 Maintainer: Janne Huovari <janne.huovari@gmail.com>
 Description: Provides customizable themes and scales for ggplot2, including VM color schemes.
