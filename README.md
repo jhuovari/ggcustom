@@ -49,7 +49,8 @@ ggplot(dsamp, aes(carat, price, colour = clarity)) +
   scale_colour_vm()
 ```
 
-    ## Warning in ggcustom_pal(n, "vm"): n is greater than maximum number of colors in the vm palette. Colors are recycled
+    ## Warning in ggcustom_pal(n, "vm"): n is greater than maximum number of colors in
+    ## the vm palette. Colors are recycled
 
 ![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
@@ -62,7 +63,8 @@ ggplot(dsamp, aes(clarity, fill = clarity)) +
   scale_fill_vm()
 ```
 
-    ## Warning in ggcustom_pal(n, "vm"): n is greater than maximum number of colors in the vm palette. Colors are recycled
+    ## Warning in ggcustom_pal(n, "vm"): n is greater than maximum number of colors in
+    ## the vm palette. Colors are recycled
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -113,9 +115,11 @@ set_gg(theme_vm(), "vm")
 p
 ```
 
-    ## Warning: The `scale_name` argument of `discrete_scale()` is deprecated as of ggplot2 3.5.0.
+    ## Warning: The `scale_name` argument of `discrete_scale()` is deprecated as of ggplot2
+    ## 3.5.0.
     ## This warning is displayed once every 8 hours.
-    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+    ## generated.
 
 ![](README_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
 
@@ -138,7 +142,7 @@ p
 The package is structured to allow additional color palettes and themes,
 making it easy to expand with other organization-specific styles.
 
-# Examples
+## Examples
 
 ``` r
 # Scatter plot with VM theme and color scale
@@ -158,9 +162,37 @@ ggplot(mpg, aes(class, fill = class)) +
   theme_vm()
 ```
 
-    ## Warning in ggcustom_pal(n, "vm"): n is greater than maximum number of colors in the vm palette. Colors are recycled
+    ## Warning in ggcustom_pal(n, "vm"): n is greater than maximum number of colors in
+    ## the vm palette. Colors are recycled
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+## Theme helpers
+
+The package includes a few small helpers to simplify adjusting common
+[ggplot2](https://ggplot2.tidyverse.org) theme elements. They wrap
+`\code{\link[ggplot2]{theme}}` calls with convenient defaults.
+
+- `the_x45()` — rotate x-axis tick labels 45° (useful for long category
+  names).
+- `the_legend_bot()` — move the legend to the bottom.
+- `the_title_blank()` — blank out selected titles (axis titles, plot
+  title, legend title, caption). You can specify which elements to blank
+  with short codes, e.g. `"xyt"` for x-axis, y-axis and plot title.
+
+``` r
+library(ggplot2)
+
+p <- ggplot(mtcars, aes(factor(cyl), mpg, fill = factor(gear))) +
+  geom_boxplot() +
+  labs(title = "Example plot", x = "Cylinders", y = "MPG",
+       caption = "Data: mtcars")
+
+# Rotate x labels, legend at bottom, blank axis titles
+p + the_x45() + the_legend_bot() + the_title_blank("xy")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 # Contributing
 

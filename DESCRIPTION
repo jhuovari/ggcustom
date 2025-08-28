@@ -10,7 +10,6 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     ggplot2,
-    ggptt (>= 1.2.9),
     scales
 Remotes: 
     pttry/ggptt

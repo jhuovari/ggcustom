@@ -2,7 +2,7 @@
 
 #' Theme VM
 #'
-#' Theme VM. Based on \code{\link{theme_bw}}. geom defaults from \code{\link{vm_pal}}
+#' Theme VM. Based on \code{\link[ggplot2]{theme_bw}}. geom defaults from \code{\link{vm_pal}}
 #'
 #' @param base_size a font size
 #' @param base_family a font
@@ -37,7 +37,7 @@ theme_vm <- function(base_size = 12, base_family = "") {
 
 #' Theme FPB
 #'
-#' Theme FPB. Based on \code{\link{theme_bw}}. geom defaults from \code{\link{fpb_pal}}
+#' Theme FPB. Based on \code{\link[ggplot2]{theme_bw}}. geom defaults from \code{\link{fpb_pal}}
 #'
 #' @param base_size a font size
 #' @param base_family a font

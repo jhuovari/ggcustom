@@ -12,7 +12,7 @@ theme_vm(base_size = 12, base_family = "")
 \item{base_family}{a font}
 }
 \description{
-Theme VM. Based on \code{\link{theme_bw}}. geom defaults from \code{\link{vm_pal}}
+Theme VM. Based on \code{\link[ggplot2]{theme_bw}}. geom defaults from \code{\link{vm_pal}}
 }
 \examples{
 library(ggplot2)
