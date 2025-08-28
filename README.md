@@ -33,8 +33,16 @@ Once the package is installed, you can load it with:
 ``` r
 library(ggcustom)
 ```
+To apply all VM setting to plots just run first:
 
-Color Scales The package includes custom color scales based on the VM
+``` r
+set_vm()
+
+```
+
+# Color Scales 
+
+The package includes custom color scales based on the VM
 color palette.
 
 ``` r
