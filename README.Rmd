@@ -2,6 +2,16 @@
 output: github_document
 ---
 
+```{r, echo=FALSE}
+
+knitr::opts_chunk$set(
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+```
+
+
 # ggcustom
 
 `ggcustom` is an R package that provides custom themes and color scales for `ggplot2` visualizations, including the VM color palette and theme as one of the available style options.
@@ -43,6 +53,7 @@ The package includes custom color scales based on the VM color palette.
 ```{r}
 
 library(ggplot2)
+library(dplyr)
 
 # Example dataset
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
@@ -75,6 +86,22 @@ p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
 p + theme_vm()
 
 ```
+
+# Theme Finnish Productivity Board
+
+```{r}
+
+# Using the fpb theme
+p <- txhousing |> 
+  filter(city %in% c("Austin", "Houston", "Dallas", "Arlington")) |> 
+  ggplot(aes(date, inventory, colour = city)) +
+  geom_line() +
+  labs(title = "Plot title", subtitle = "Subtitle", caption = "Source:TAMU real estate center")
+
+p + scale_colour_manual(values = fpb_pal(4)) + theme_fpb()
+
+```
+
 
 ### Setting Custom Theme and Palette with `set_gg()`
 

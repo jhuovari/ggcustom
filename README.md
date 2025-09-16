@@ -33,21 +33,27 @@ Once the package is installed, you can load it with:
 ``` r
 library(ggcustom)
 ```
-To apply all VM setting to plots just run first:
 
-``` r
-set_vm()
-
-```
-
-# Color Scales 
-
-The package includes custom color scales based on the VM
+Color Scales The package includes custom color scales based on the VM
 color palette.
 
 ``` r
 library(ggplot2)
+library(dplyr)
+```
 
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
 # Example dataset
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 
@@ -60,7 +66,7 @@ ggplot(dsamp, aes(carat, price, colour = clarity)) +
     ## Warning in ggcustom_pal(n, "vm"): n is greater than maximum number of colors in
     ## the vm palette. Colors are recycled
 
-![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 You can also use the fill scale for bar plots or other filled
 geometries:
@@ -74,7 +80,7 @@ ggplot(dsamp, aes(clarity, fill = clarity)) +
     ## Warning in ggcustom_pal(n, "vm"): n is greater than maximum number of colors in
     ## the vm palette. Colors are recycled
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 # VM Theme
 
@@ -87,7 +93,22 @@ p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
 p + theme_vm()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+
+# Theme Finnish Productivity Board
+
+``` r
+# Using the fpb theme
+p <- txhousing |> 
+  filter(city %in% c("Austin", "Houston", "Dallas", "Arlington")) |> 
+  ggplot(aes(date, inventory, colour = city)) +
+  geom_line() +
+  labs(title = "Plot title", subtitle = "Subtitle", caption = "Source:TAMU real estate center")
+
+p + scale_colour_manual(values = fpb_pal(4)) + theme_fpb()
+```
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
 ### Setting Custom Theme and Palette with `set_gg()`
 
@@ -113,7 +134,7 @@ p <- ggplot(data, aes(x = category, y = value, colour = factor(group), group = g
 p
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
 
 ``` r
 # Set the VM theme and VM palette
@@ -129,7 +150,7 @@ p
     ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
     ## generated.
 
-![](README_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-7-2.png" width="100%" />
 
 ``` r
 # Optionally, reset to the original theme and scales
@@ -143,7 +164,7 @@ unset_gg()
 p
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-5-3.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-7-3.png" width="100%" />
 
 # Additional Palettes and Themes
 
@@ -160,7 +181,7 @@ ggplot(mtcars, aes(mpg, wt, color = factor(cyl))) +
   theme_vm()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
 
 ``` r
 # Bar plot with VM fill scale
@@ -173,7 +194,7 @@ ggplot(mpg, aes(class, fill = class)) +
     ## Warning in ggcustom_pal(n, "vm"): n is greater than maximum number of colors in
     ## the vm palette. Colors are recycled
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
 ## Theme helpers
 
@@ -200,7 +221,7 @@ p <- ggplot(mtcars, aes(factor(cyl), mpg, fill = factor(gear))) +
 p + the_x45() + the_legend_bot() + the_title_blank("xy")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
 
 # Contributing
 
