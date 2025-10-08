@@ -11,12 +11,12 @@ the_x45()
 
 the_legend_bot()
 
-the_title_blank(blanks = c("x", "y", "t", "l", "c"))
+the_title_blank(blanks = c("x", "y", "t", "s", "l", "c"))
 }
 \arguments{
 \item{blanks}{In \code{the_title_blank} a vector of initials for blank titles.
-Default is all titles: \code{c("x","y","t","l","c")} for x-axis, y-axis,
-plot title, legend title and caption. A concatenated string like \code{"xyt"}
+Default is all titles: \code{c("x","y","t","s","l","c")} for x-axis, y-axis,
+plot title, subtitle, legend title and caption. A concatenated string like \code{"xyt"}
 also works.}
 }
 \description{
@@ -31,6 +31,7 @@ Valid codes are:
   \item \code{"x"} = \code{axis.title.x}
   \item \code{"y"} = \code{axis.title.y}
   \item \code{"t"} = \code{plot.title}
+  \item \code{"s"} = \code{plot.subtitle}
   \item \code{"l"} = \code{legend.title}
   \item \code{"c"} = \code{plot.caption}
 }
@@ -56,11 +57,14 @@ Valid codes are:
 \examples{
 \dontrun{
 library(ggplot2)
-p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
+p <- ggplot(mtcars, aes(wt, mpg)) + geom_point() +
+  labs(title = "Main title", subtitle = "Subtitle", caption = "Data: mtcars")
+
 p + the_x45()
 p + the_legend_bot()
 p + the_title_blank("xyt")       # blanks x/y axis titles and plot title
 p + the_title_blank(c("l","c"))  # blanks legend title and caption
+p + the_title_blank("s")         # blanks only the plot subtitle
 }
 
 }

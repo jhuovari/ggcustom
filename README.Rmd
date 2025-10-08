@@ -171,9 +171,9 @@ The package includes a few small helpers to simplify adjusting common
 
 - `the_x45()` — rotate x-axis tick labels 45° (useful for long category names).
 - `the_legend_bot()` — move the legend to the bottom.
-- `the_title_blank()` — blank out selected titles (axis titles, plot title,
-  legend title, caption). You can specify which elements to blank with short
-  codes, e.g. `"xyt"` for x-axis, y-axis and plot title.
+- `the_title_blank()` — blank out selected titles (axis titles, plot title, 
+  subtitle, legend title, caption). You can specify which elements to blank 
+  with short codes, e.g. `"xyt"` for x-axis, y-axis and plot title.
 
 ```{r, message=FALSE}
 library(ggplot2)

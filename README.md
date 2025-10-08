@@ -206,8 +206,9 @@ The package includes a few small helpers to simplify adjusting common
   names).
 - `the_legend_bot()` — move the legend to the bottom.
 - `the_title_blank()` — blank out selected titles (axis titles, plot
-  title, legend title, caption). You can specify which elements to blank
-  with short codes, e.g. `"xyt"` for x-axis, y-axis and plot title.
+  title, subtitle, legend title, caption). You can specify which
+  elements to blank with short codes, e.g. `"xyt"` for x-axis, y-axis
+  and plot title.
 
 ``` r
 library(ggplot2)
