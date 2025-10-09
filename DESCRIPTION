@@ -5,12 +5,11 @@ Version: 0.1.3
 Author: Janne Huovari [aut, cre]
 Maintainer: Janne Huovari <janne.huovari@gmail.com>
 Description: Provides customizable themes and scales for ggplot2, including VM color schemes.
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
-    ggplot2 (>= 4.0.0),
-    scales
+    ggplot2 (>= 4.0.0)
 Remotes: 
     pttry/ggptt
 RoxygenNote: 7.3.3

@@ -4,7 +4,7 @@
 #'
 #' Discrete VM color scale. Colors from \code{\link{vm_pal}}.
 #'
-#' @param ... Other arguments passed on to \code{\link{discrete_scale}}.
+#' @param ... Other arguments passed on to \code{\link[ggplot2:discrete_scale]{discrete_scale}}.
 #' @export
 #' @examples
 #'  library(ggplot2)
