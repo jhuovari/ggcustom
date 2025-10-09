@@ -5,19 +5,22 @@
 \alias{unset_gg}
 \title{Set Theme and Palette Defaults}
 \usage{
-set_gg(theme, palette)
+set_gg(theme, palette = NULL)
 
 unset_gg()
 }
 \arguments{
 \item{theme}{A ggplot2 theme.}
 
-\item{palette}{A palette function or the name of a ggcustom palette.
-See \code{names(ggcustom_palettes)}.}
+\item{palette}{Optional palette function or the name of a ggcustom palette.
+See \code{names(ggcustom_palettes)}. If `NULL`, the supplied `theme`
+should already provide palette information (for example via
+`palette.discrete.*` theme entries).}
 }
 \description{
 Set a custom theme and palette defaults using ggcustom. Updates `theme` and
-the discrete colour and fill palettes via ggplot2's theme palette entries.
+the discrete colour and fill palettes via ggplot2's theme palette entries
+when a palette is provided.
 }
 \section{Functions}{
 \itemize{

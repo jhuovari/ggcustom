@@ -3,7 +3,10 @@
 # Define the collection of color palettes for ggcustom
 ggcustom_palettes <- list(
   # Ministry of Finance
-  vm = c("#006475", "#c48903", "#365ABD", "#0098e8", "#1B396D", "#00959B"),
+  vm = c("#006475", "#c48903", "#365ABD", "#0098e8", "#1B396D", "#00959B", # alkuperäiset
+         "#4E8E7C", "#D3A625", "#6E83C5", "#00B6EB", "#254B82", "#00B3A6", # laajennus 1
+         "#679B99", "#E5B73B", "#8096D4", "#33C6F0", "#2A599A", "#33C2BA", # laajennus 2
+         "#A1C7C3", "#F2CB66", "#B0BBE3", "#66D5F7"),                        # pehmeät lisät),
   # Finnish Productivity Board
   fpb = c("#0072B2", "#fc7d0b", "#109618", "grey45", "#c85200", "#5fa2ce", "#f4c623", "#b8c9dc", "#6c905e", "#8B3E2F", "#8968CD", "#cd3122", "grey75")
 )

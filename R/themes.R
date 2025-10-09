@@ -31,9 +31,9 @@ theme_vm <- function(base_size = 12, base_family = "") {
       strip.background = ggplot2::element_blank(),
       axis.line.x.bottom = ggplot2::element_line(),
       axis.line.x.top = ggplot2::element_line(),
-      palette.discrete.fill = vm_pal,
-      palette.discrete.colour = vm_pal,
-      palette.discrete.color = vm_pal
+      palette.fill.discrete = ggcustom_palettes[["vm"]],
+      palette.colour.discrete = ggcustom_palettes[["vm"]]
+
     )
 }
 
@@ -92,8 +92,9 @@ theme_fpb <- function(base_size = 12, base_family = "") {
       plot.subtitle       = ggplot2::element_text(colour = "grey40"),
       plot.caption        = ggplot2::element_text(size = ggplot2::rel(0.8), colour = "grey40"),
       plot.margin         = grid::unit(c(0.6, 0.7, 0.5, 0.6), "cm"),
-      palette.discrete.fill = fpb_pal,
-      palette.discrete.colour = fpb_pal,
-      palette.discrete.color = fpb_pal
+
+      ## Paletti
+      palette.fill.discrete = ggcustom_palettes[["fpb"]],
+      palette.colour.discrete = ggcustom_palettes[["fpb"]]
     )
 }

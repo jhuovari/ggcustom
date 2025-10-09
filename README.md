@@ -67,9 +67,6 @@ ggplot(dsamp, aes(carat, price, colour = clarity)) +
   scale_colour_vm()
 ```
 
-    ## Warning in ggcustom_pal(n, "vm"): n is greater than maximum number of colors in
-    ## the vm palette. Colors are recycled
-
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 You can also use the fill scale for bar plots or other filled
@@ -80,9 +77,6 @@ ggplot(dsamp, aes(clarity, fill = clarity)) +
   geom_bar() +
   scale_fill_vm()
 ```
-
-    ## Warning in ggcustom_pal(n, "vm"): n is greater than maximum number of colors in
-    ## the vm palette. Colors are recycled
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
@@ -106,8 +100,8 @@ p + theme_vm()
 
 ``` r
 # Using the fpb theme
-p <- txhousing |>
-  filter(city %in% c("Austin", "Houston", "Dallas", "Arlington")) |>
+p <- txhousing |> 
+  filter(city %in% c("Austin", "Houston", "Dallas", "Arlington")) |> 
   ggplot(aes(date, inventory, colour = city)) +
   geom_line() +
   labs(title = "Plot title", subtitle = "Subtitle", caption = "Source:TAMU real estate center")
@@ -120,13 +114,13 @@ p + theme_fpb()
 ### Setting Custom Theme and Palette with `set_gg()`
 
 The `set_gg()` function allows you to set a custom theme and,
-optionally, override palette defaults for your `ggplot2`
-visualizations. When the `palette` argument is omitted, the function uses
-the palette information already embedded in the supplied theme (for
-example `theme_vm()` adds palette defaults through the ggplot2 4.0.0
-theme palette entries). You can still provide a palette function or
-ggcustom palette name to override those defaults when needed. Below is an
-example using `theme_vm()`. For VM there is also the shortcut `set_vm()`.
+optionally, override palette defaults for your `ggplot2` visualizations.
+When the `palette` argument is omitted, the function uses the palette
+information already embedded in the supplied theme (for example
+`theme_vm()` adds palette defaults through the ggplot2 4.0.0 theme
+palette entries). You can still provide a palette function or ggcustom
+palette name to override those defaults when needed. Below is an example
+using `theme_vm()`. For VM there is also the shortcut `set_vm()`.
 
 ``` r
 # Example dataset
@@ -182,7 +176,6 @@ making it easy to expand with other organization-specific styles.
 # Scatter plot with VM theme and color scale
 ggplot(mtcars, aes(mpg, wt, color = factor(cyl))) +
   geom_point(size = 3) +
-  scale_colour_vm() +
   theme_vm()
 ```
 
@@ -192,12 +185,8 @@ ggplot(mtcars, aes(mpg, wt, color = factor(cyl))) +
 # Bar plot with VM fill scale
 ggplot(mpg, aes(class, fill = class)) +
   geom_bar() +
-  scale_fill_vm() +
   theme_vm()
 ```
-
-    ## Warning in ggcustom_pal(n, "vm"): n is greater than maximum number of colors in
-    ## the vm palette. Colors are recycled
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 

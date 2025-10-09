@@ -8,7 +8,7 @@ set_vm()
 }
 \description{
 This is a shortcut function to set the VM theme and palette for `ggplot2` visualizations.
-It applies the \code{\link{theme_vm}} and registers the default discrete colour and fill
+It applies the \code{\link{theme_vm}}, which already embeds the default discrete colour and fill
 palettes via the theme settings introduced in ggplot2 4.0.0.
 }
 \examples{
