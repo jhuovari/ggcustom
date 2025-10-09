@@ -19,7 +19,7 @@ scale_colour_vm_lg(...)
 scale_color_vm_lg(...)
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link{discrete_scale}}.}
+\item{...}{Other arguments passed on to \code{\link[ggplot2:discrete_scale]{discrete_scale}}.}
 }
 \description{
 Discrete VM color scale. Colors from \code{\link{vm_pal}}.

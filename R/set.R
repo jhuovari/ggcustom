@@ -1,66 +1,68 @@
-#' Set Theme and Scales
+# Internal environment to store previous theme state
+.ggcustom_state <- new.env(parent = emptyenv())
+
+#' Set Theme and Palette Defaults
 #'
-#' Set a custom theme and scales using ggcustom. Updates `theme` and discrete
-#' color and fill scales with the selected palette.
+#' Set a custom theme and palette defaults using ggcustom. Updates `theme` and
+#' the discrete colour and fill palettes via ggplot2's theme palette entries
+#' when a palette is provided.
 #'
 #' @param theme A ggplot2 theme.
-#' @param palette A palette function or the name of a ggcustom palette.
-#'    See \code{names(ggcustom_palettes)}.
+#' @param palette Optional palette function or the name of a ggcustom palette.
+#'    See \code{names(ggcustom_palettes)}. If `NULL`, the supplied `theme`
+#'    should already provide palette information (for example via
+#'    `palette.discrete.*` theme entries).
 #' @export
-set_gg <- function(theme, palette) {
-
-  # environment for sets
-  # environment for sets
-  if (!("ggcustom_sets" %in% search())) {
-    e <- new.env()
-    attach(e, name = "ggcustom_sets", warn.conflicts = FALSE)
-  }
+set_gg <- function(theme, palette = NULL) {
 
   # Validate theme
   if (!inherits(theme, "theme")) {
     stop("The `theme` argument must be a valid ggplot2 theme.")
   }
 
-  # Validate palette
-  if (!is.function(palette) && !(palette %in% names(ggcustom_palettes))) {
-    stop(paste(palette, "is not a valid palette name for ggcustom_pal"))
+  if (!is.null(palette)) {
+    # Validate palette
+    if (!is.function(palette) && !(palette %in% names(ggcustom_palettes))) {
+      stop(paste(palette, "is not a valid palette name for ggcustom_pal"))
+    }
+
+    # Define palette function
+    pal <- if (is.function(palette)) {
+      palette
+    } else {
+      function(n) ggcustom_pal(n, palette)
+    }
+
+    # Combine theme with palette defaults introduced in ggplot2 4.0.0
+    theme <- theme +
+      ggplot2::theme(
+        palette.discrete.fill = pal,
+        palette.discrete.colour = pal,
+        palette.discrete.color = pal
+      )
   }
 
-  # Set theme
-  old_theme <- ggplot2::theme_set(theme)
-  assign("old_theme", old_theme,
-         pos = "ggcustom_sets")
+  was_set <- isTRUE(get0("is_set", .ggcustom_state, inherits = FALSE))
+  previous_theme <- ggplot2::theme_set(theme)
 
-  # Define palette function
-  if (is.function(palette)) {
-    pal <- palette
-  } else {
-    pal <- function(n) ggcustom_pal(n, palette)
+  if (!was_set) {
+    assign("old_theme", previous_theme, envir = .ggcustom_state)
   }
+  assign("is_set", TRUE, envir = .ggcustom_state)
 
-
-  scale_colour_discrete <- function(...) {
-    ggplot2::discrete_scale("colour", "ggcustom", pal, ...)
-  }
-
-  scale_fill_discrete <- function(...) {
-    ggplot2::discrete_scale("fill", "ggcustom", pal, ...)
-  }
-
-  assign("scale_colour_discrete", scale_colour_discrete, pos = "ggcustom_sets")
-  assign("scale_color_discrete", scale_colour_discrete, pos = "ggcustom_sets")
-  assign("scale_fill_discrete", scale_fill_discrete, pos = "ggcustom_sets")
+  invisible(theme)
 }
 
-#' Reset Theme and Scales
+#' Reset Theme and Palette Defaults
 #'
-#' @describeIn set_gg Restores the original theme and scales before `set_gg()` was called.
+#' @describeIn set_gg Restores the original theme before `set_gg()` was called.
 #'
 #' @export
 unset_gg <- function() {
-  if (("ggcustom_sets" %in% search())){
-    ggplot2::theme_set(get("old_theme", "ggcustom_sets"))
-    detach("ggcustom_sets")
+  if (isTRUE(get0("is_set", .ggcustom_state, inherits = FALSE))) {
+    old_theme <- get0("old_theme", .ggcustom_state, inherits = FALSE)
+    ggplot2::theme_set(old_theme)
+    rm(list = c("old_theme", "is_set"), envir = .ggcustom_state)
     message("ggcustom unset.")
   }
 }
@@ -69,8 +71,8 @@ unset_gg <- function() {
 #' Set VM Theme and Palette
 #'
 #' This is a shortcut function to set the VM theme and palette for `ggplot2` visualizations.
-#' It applies the \code{\link{theme_vm}} and sets the default discrete color and fill scales
-#' to use the VM palette.
+#' It applies the \code{\link{theme_vm}}, which already embeds the default discrete colour and fill
+#' palettes via the theme settings introduced in ggplot2 4.0.0.
 #'
 #' @export
 #' @examples
@@ -97,5 +99,5 @@ unset_gg <- function() {
 #' unset_gg()
 
 set_vm <- function() {
-  set_gg(theme_vm(), "vm")
+  set_gg(theme_vm())
 }

@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 
 # ggcustom
 
-`ggcustom` is an R package that provides custom themes and color scales for `ggplot2` visualizations, including the VM color palette and theme as one of the available style options.
+`ggcustom` is an R package that provides custom themes and color scales for `ggplot2` visualizations, including the VM color palette and theme as one of the available style options. From ggplot2 4.0.0 onwards the package configures the organisation palettes through theme palette entries, so the desired colours are available without overriding global scale functions.
 
 ## Installation
 
@@ -35,7 +35,7 @@ The `ggcustom` package is designed to make it easy to apply consistent themes an
 
 - Custom color palettes for FPB and VM.
 - Discrete color and fill scales using those palettes.
-- FPB and VM themes for ggplot2 plots
+- FPB and VM themes for ggplot2 plots with palette defaults wired through the theme.
 
 #  Usage
 
@@ -77,7 +77,7 @@ ggplot(dsamp, aes(clarity, fill = clarity)) +
 
 # VM Theme
 
-The theme_vm function provides a customized ggplot2 theme based on theme_bw, with defaults that make use of the VM color palette.
+The `theme_vm()` function provides a customized ggplot2 theme based on `theme_bw`, with defaults that make use of the VM color palette. When added to a plot, the theme also registers the VM palette as the default discrete colour and fill scales via the new theme palette entries in ggplot2 4.0.0.
 
 ```{r}
 
@@ -98,14 +98,14 @@ p <- txhousing |>
   geom_line() +
   labs(title = "Plot title", subtitle = "Subtitle", caption = "Source:TAMU real estate center")
 
-p + scale_colour_manual(values = fpb_pal(4)) + theme_fpb()
+p + theme_fpb()
 
 ```
 
 
 ### Setting Custom Theme and Palette with `set_gg()`
 
-The `set_gg()` function allows you to set a custom theme and palette for your `ggplot2` visualizations. Below is an example using the `theme_vm()` and the `vm` palette. For VM there is also shortcut `set_vm()`.
+The `set_gg()` function allows you to set a custom theme and, optionally, override palette defaults for your `ggplot2` visualizations. When the `palette` argument is omitted, the function uses the palette information already embedded in the supplied theme (for example `theme_vm()` adds palette defaults through the ggplot2 4.0.0 theme palette entries). You can still provide a palette function or ggcustom palette name to override those defaults when needed. Below is an example using `theme_vm()`. For VM there is also the shortcut `set_vm()`.
 
 ```{r}
 
@@ -125,16 +125,16 @@ p <- ggplot(data, aes(x = category, y = value, colour = factor(group), group = g
 # Before setting custom theme and palette
 p
 
-# Set the VM theme and VM palette
-set_gg(theme_vm(), "vm")
+# Set the VM theme (palette defaults come from the theme itself)
+set_gg(theme_vm())
 
 # Plot with VM theme and VM color palette
 p
 
-# Optionally, reset to the original theme and scales
+# Optionally, reset to the original theme
 unset_gg()
 
-# Verify that the original theme and scales are restored
+# Verify that the original theme is restored
 p
 ```
 
@@ -148,7 +148,6 @@ The package is structured to allow additional color palettes and themes, making 
 # Scatter plot with VM theme and color scale
 ggplot(mtcars, aes(mpg, wt, color = factor(cyl))) +
   geom_point(size = 3) +
-  scale_colour_vm() +
   theme_vm()
 ```
 
@@ -157,7 +156,6 @@ ggplot(mtcars, aes(mpg, wt, color = factor(cyl))) +
 # Bar plot with VM fill scale
 ggplot(mpg, aes(class, fill = class)) +
   geom_bar() +
-  scale_fill_vm() +
   theme_vm()
 
 ```
