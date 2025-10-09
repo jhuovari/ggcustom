@@ -119,11 +119,14 @@ p + theme_fpb()
 
 ### Setting Custom Theme and Palette with `set_gg()`
 
-The `set_gg()` function allows you to set a custom theme and palette for
-your `ggplot2` visualizations. It combines a theme with palette defaults
-using the theme palette entries introduced in ggplot2 4.0.0. Below is an
-example using the `theme_vm()` and the `vm` palette. For VM there is
-also the shortcut `set_vm()`.
+The `set_gg()` function allows you to set a custom theme and,
+optionally, override palette defaults for your `ggplot2`
+visualizations. When the `palette` argument is omitted, the function uses
+the palette information already embedded in the supplied theme (for
+example `theme_vm()` adds palette defaults through the ggplot2 4.0.0
+theme palette entries). You can still provide a palette function or
+ggcustom palette name to override those defaults when needed. Below is an
+example using `theme_vm()`. For VM there is also the shortcut `set_vm()`.
 
 ``` r
 # Example dataset
@@ -145,8 +148,8 @@ p
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
 
 ``` r
-# Set the VM theme and VM palette
-set_gg(theme_vm(), "vm")
+# Set the VM theme (palette defaults come from the theme itself)
+set_gg(theme_vm())
 
 # Plot with VM theme and VM color palette
 p
