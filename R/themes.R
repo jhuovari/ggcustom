@@ -2,7 +2,7 @@
 
 #' Theme VM
 #'
-#' Theme VM. Based on \code{\link[ggplot2]{theme_bw}}. geom defaults from \code{\link{vm_pal}}
+#' Theme VM. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete palette defaults via ggplot2 theme entries and geom defaults from \code{\link{vm_pal}}
 #'
 #' @param base_size a font size
 #' @param base_family a font
@@ -28,16 +28,19 @@ theme_vm <- function(base_size = 12, base_family = "") {
       panel.grid.minor = ggplot2::element_blank(),
       panel.grid.major.x = ggplot2::element_blank(),
       panel.border = ggplot2::element_blank(),
-       strip.background = ggplot2::element_blank(),
+      strip.background = ggplot2::element_blank(),
       axis.line.x.bottom = ggplot2::element_line(),
-      axis.line.x.top = ggplot2::element_line()
+      axis.line.x.top = ggplot2::element_line(),
+      palette.discrete.fill = vm_pal,
+      palette.discrete.colour = vm_pal,
+      palette.discrete.color = vm_pal
     )
 }
 
 
 #' Theme FPB
 #'
-#' Theme FPB. Based on \code{\link[ggplot2]{theme_bw}}. geom defaults from \code{\link{fpb_pal}}
+#' Theme FPB. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete palette defaults via ggplot2 theme entries and geom defaults from \code{\link{fpb_pal}}
 #'
 #' @param base_size a font size
 #' @param base_family a font
@@ -88,6 +91,9 @@ theme_fpb <- function(base_size = 12, base_family = "") {
       plot.title          = ggplot2::element_text(face = "bold", colour = "grey10", size = ggplot2::rel(1.1)),
       plot.subtitle       = ggplot2::element_text(colour = "grey40"),
       plot.caption        = ggplot2::element_text(size = ggplot2::rel(0.8), colour = "grey40"),
-      plot.margin         = grid::unit(c(0.6, 0.7, 0.5, 0.6), "cm")
+      plot.margin         = grid::unit(c(0.6, 0.7, 0.5, 0.6), "cm"),
+      palette.discrete.fill = fpb_pal,
+      palette.discrete.colour = fpb_pal,
+      palette.discrete.color = fpb_pal
     )
 }

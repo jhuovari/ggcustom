@@ -3,7 +3,10 @@
 
 `ggcustom` is an R package that provides custom themes and color scales
 for `ggplot2` visualizations, including the VM color palette and theme
-as one of the available style options.
+as one of the available style options. From ggplot2 4.0.0 onwards the
+package configures the organisation palettes through theme palette
+entries, so the desired colours are available without overriding global
+scale functions.
 
 ## Installation
 
@@ -24,7 +27,8 @@ themes and color schemes to ggplot2 visualizations. It includes:
 
 - Custom color palettes for FPB and VM.
 - Discrete color and fill scales using those palettes.
-- FPB and VM themes for ggplot2 plots
+- FPB and VM themes for ggplot2 plots with palette defaults wired
+  through the theme.
 
 # Usage
 
@@ -84,8 +88,11 @@ ggplot(dsamp, aes(clarity, fill = clarity)) +
 
 # VM Theme
 
-The theme_vm function provides a customized ggplot2 theme based on
-theme_bw, with defaults that make use of the VM color palette.
+The `theme_vm()` function provides a customized ggplot2 theme based on
+`theme_bw`, with defaults that make use of the VM color palette. When
+added to a plot, the theme also registers the VM palette as the default
+discrete colour and fill scales via the new theme palette entries in
+ggplot2 4.0.0.
 
 ``` r
 # Using the VM theme
@@ -99,13 +106,13 @@ p + theme_vm()
 
 ``` r
 # Using the fpb theme
-p <- txhousing |> 
-  filter(city %in% c("Austin", "Houston", "Dallas", "Arlington")) |> 
+p <- txhousing |>
+  filter(city %in% c("Austin", "Houston", "Dallas", "Arlington")) |>
   ggplot(aes(date, inventory, colour = city)) +
   geom_line() +
   labs(title = "Plot title", subtitle = "Subtitle", caption = "Source:TAMU real estate center")
 
-p + scale_colour_manual(values = fpb_pal(4)) + theme_fpb()
+p + theme_fpb()
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
@@ -113,9 +120,10 @@ p + scale_colour_manual(values = fpb_pal(4)) + theme_fpb()
 ### Setting Custom Theme and Palette with `set_gg()`
 
 The `set_gg()` function allows you to set a custom theme and palette for
-your `ggplot2` visualizations. Below is an example using the
-`theme_vm()` and the `vm` palette. For VM there is also shortcut
-`set_vm()`.
+your `ggplot2` visualizations. It combines a theme with palette defaults
+using the theme palette entries introduced in ggplot2 4.0.0. Below is an
+example using the `theme_vm()` and the `vm` palette. For VM there is
+also the shortcut `set_vm()`.
 
 ``` r
 # Example dataset
@@ -144,23 +152,17 @@ set_gg(theme_vm(), "vm")
 p
 ```
 
-    ## Warning: The `scale_name` argument of `discrete_scale()` is deprecated as of ggplot2
-    ## 3.5.0.
-    ## This warning is displayed once every 8 hours.
-    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-    ## generated.
-
 <img src="man/figures/README-unnamed-chunk-7-2.png" width="100%" />
 
 ``` r
-# Optionally, reset to the original theme and scales
+# Optionally, reset to the original theme
 unset_gg()
 ```
 
     ## ggcustom unset.
 
 ``` r
-# Verify that the original theme and scales are restored
+# Verify that the original theme is restored
 p
 ```
 

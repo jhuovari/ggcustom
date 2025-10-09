@@ -3,7 +3,7 @@
 \name{set_gg}
 \alias{set_gg}
 \alias{unset_gg}
-\title{Set Theme and Scales}
+\title{Set Theme and Palette Defaults}
 \usage{
 set_gg(theme, palette)
 
@@ -16,11 +16,11 @@ unset_gg()
 See \code{names(ggcustom_palettes)}.}
 }
 \description{
-Set a custom theme and scales using ggcustom. Updates `theme` and discrete
-color and fill scales with the selected palette.
+Set a custom theme and palette defaults using ggcustom. Updates `theme` and
+the discrete colour and fill palettes via ggplot2's theme palette entries.
 }
 \section{Functions}{
 \itemize{
-\item \code{unset_gg()}: Restores the original theme and scales before `set_gg()` was called.
+\item \code{unset_gg()}: Restores the original theme before `set_gg()` was called.
 
 }}
