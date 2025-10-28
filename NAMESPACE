@@ -2,6 +2,7 @@
 
 export(fpb_pal)
 export(fpb_pal_lg)
+export(gg_translate)
 export(ggcustom_pal)
 export(scale_color_vm)
 export(scale_color_vm_lg)

@@ -218,6 +218,48 @@ p + the_x45() + the_legend_bot() + the_title_blank("xy")
 
 <img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
 
+## gg_translate — Translate ggplot2 and patchwork plots
+
+`gg_translate()` translates all visible text elements in ggplot2 and
+patchwork plots using a named translation vector. It updates plot
+titles, subtitles, captions, axis labels, legend titles and entries, and
+facet labels — including factor levels used in legends.
+
+The function is useful for creating bilingual or internationalised
+reports without rebuilding plots. It works by applying translations to
+data, labels, scales, and facets after the plot has been created.
+
+``` r
+p <- ggplot(mtcars, aes(wt, mpg, fill = factor(cyl))) +
+geom_col(stat = "identity") +
+labs(
+title = "Car efficiency",
+y = "Miles per gallon",
+x = "Weight",
+fill = "Cylinders"
+)
+
+
+
+
+trans <- c(
+"Car efficiency" = "Autotehokkuus",
+"Miles per gallon" = "Mailia per gallona",
+"Weight" = "Paino",
+"Cylinders" = "Sylinterit",
+"4" = "4-syl.",
+"6" = "6-syl.",
+"8" = "8-syl."
+)
+
+
+
+
+gg_translate(p, trans)
+```
+
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
+
 # Contributing
 
 Contributions are welcome! If you’d like to add new color palettes,
