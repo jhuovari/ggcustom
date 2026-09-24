@@ -12,7 +12,10 @@ theme_vm(base_size = 12, base_family = "")
 \item{base_family}{a font}
 }
 \description{
-Theme VM. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete palette defaults via ggplot2 theme entries and geom defaults from \code{\link{vm_pal}}
+Theme VM. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete colour
+and fill palette defaults to \code{\link{vm_pal}} via ggplot2 4.0.0 theme
+entries. Does not change geom defaults by itself; use
+\code{\link{set_vm}} or \code{\link{set_gg}} for that.
 }
 \examples{
 library(ggplot2)
