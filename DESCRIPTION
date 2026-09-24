@@ -7,9 +7,15 @@ Maintainer: Janne Huovari <janne.huovari@gmail.com>
 Description: Provides customizable themes and scales for ggplot2, including VM color schemes.
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
+Depends:
+    R (>= 4.1.0)
 Imports:
-    ggplot2 (>= 4.0.0)
+    dplyr,
+    forcats,
+    ggplot2 (>= 4.0.0),
+    patchwork,
+    purrr,
+    stringi
 Suggests:
     scales,
     testthat (>= 3.0.0)

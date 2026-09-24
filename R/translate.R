@@ -55,17 +55,17 @@ gg_translate <- function(plot, trans) {
 translator <- function(plot, trans) {
 
   # fct_recode expects reversed mapping: new = old
-  trans_factor <- setNames(names(trans), unname(trans))
+  trans_factor <- stats::setNames(names(trans), unname(trans))
 
   recode_df <- function(df) {
     if (is.null(df) || !is.data.frame(df)) return(df)
     df |>
       dplyr::mutate(dplyr::across(
-        where(is.factor),
+        dplyr::where(is.factor),
         ~ forcats::fct_recode(.x, !!!as.list(trans_factor))
       )) |>
       dplyr::mutate(dplyr::across(
-        where(is.character),
+        dplyr::where(is.character),
         ~ dplyr::recode(.x, !!!as.list(trans))
       ))
   }
