@@ -57,3 +57,31 @@ test_that("theme_vm()/theme_fpb() are pure and don't touch geom defaults", {
   expect_identical(ggplot2::GeomPoint$default_aes$colour, original_point_colour)
   expect_identical(ggplot2::GeomBar$default_aes$fill, original_bar_fill)
 })
+
+test_that("plots using theme_vm()/theme_fpb() build without error", {
+  # Regression test: vm_pal()/fpb_pal() default `n` to NULL (to support
+  # calling them with no arguments), and passing them directly as a
+  # theme's palette.*.discrete entry made ggplot2 raise "has NULL property
+  # without default: n" when building the plot. See themes.R.
+  p <- ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg, colour = factor(cyl))) +
+    ggplot2::geom_point()
+
+  expect_no_error(ggplot2::ggplot_build(p + theme_vm()))
+  expect_no_error(ggplot2::ggplot_build(p + theme_fpb()))
+})
+
+test_that("plots using set_gg()/set_vm() with a palette build without error", {
+  on.exit(unset_gg(), add = TRUE)
+
+  p <- ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg, colour = factor(cyl))) +
+    ggplot2::geom_point()
+
+  set_vm()
+  expect_no_error(ggplot2::ggplot_build(p))
+
+  unset_gg()
+  # vm_pal has a `n = NULL` default; set_gg() must not pass it through to
+  # the theme as-is (see the note in set_gg()'s `pal` construction).
+  set_gg(ggplot2::theme_bw(), palette = vm_pal)
+  expect_no_error(ggplot2::ggplot_build(p))
+})
