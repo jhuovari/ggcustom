@@ -2,7 +2,10 @@
 
 #' Theme VM
 #'
-#' Theme VM. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete palette defaults via ggplot2 theme entries and geom defaults from \code{\link{vm_pal}}
+#' Theme VM. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete colour
+#' and fill palette defaults to \code{\link{vm_pal}} via ggplot2 4.0.0 theme
+#' entries. Does not change geom defaults by itself; use
+#' \code{\link{set_vm}} or \code{\link{set_gg}} for that.
 #'
 #' @param base_size a font size
 #' @param base_family a font
@@ -14,13 +17,6 @@
 #' p + theme_vm()
 
 theme_vm <- function(base_size = 12, base_family = "") {
-  # Set default colors for geoms using the first color in the VM palette
-  ggplot2::update_geom_defaults("bar", list(fill = vm_pal(1)))
-  ggplot2::update_geom_defaults("col", list(fill = vm_pal(1)))
-  ggplot2::update_geom_defaults("point", list(size = 4, colour = vm_pal(1)))
-  ggplot2::update_geom_defaults("text", list(size = 4, colour = vm_pal(1)))
-  ggplot2::update_geom_defaults("line", list(linewidth = 1.5, colour = vm_pal(1)))
-
   # Apply the theme modifications
   ggplot2::theme_bw(base_size = base_size, base_family = base_family) +
     ggplot2::theme(
@@ -31,16 +27,18 @@ theme_vm <- function(base_size = 12, base_family = "") {
       strip.background = ggplot2::element_blank(),
       axis.line.x.bottom = ggplot2::element_line(),
       axis.line.x.top = ggplot2::element_line(),
-      palette.fill.discrete = ggcustom_palettes[["vm"]],
-      palette.colour.discrete = ggcustom_palettes[["vm"]]
-
+      palette.fill.discrete = vm_pal,
+      palette.colour.discrete = vm_pal
     )
 }
 
 
 #' Theme FPB
 #'
-#' Theme FPB. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete palette defaults via ggplot2 theme entries and geom defaults from \code{\link{fpb_pal}}
+#' Theme FPB. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete colour
+#' and fill palette defaults to \code{\link{fpb_pal}} via ggplot2 4.0.0 theme
+#' entries. Does not change geom defaults by itself; use
+#' \code{\link{set_gg}} (with \code{palette = "fpb"}) for that.
 #'
 #' @param base_size a font size
 #' @param base_family a font
@@ -52,13 +50,6 @@ theme_vm <- function(base_size = 12, base_family = "") {
 #' p + theme_fpb()
 
 theme_fpb <- function(base_size = 12, base_family = "") {
-  # Oletusasetukset geomeille FPB-palettia käyttäen
-  ggplot2::update_geom_defaults("bar",   list(fill = fpb_pal(1)))
-  ggplot2::update_geom_defaults("col",   list(fill = fpb_pal(1)))
-  ggplot2::update_geom_defaults("point", list(size = 4, colour = fpb_pal(1)))
-  ggplot2::update_geom_defaults("text",  list(size = 4, colour = fpb_pal(1)))
-  ggplot2::update_geom_defaults("line",  list(linewidth = 1.5, colour = fpb_pal(1)))
-
   ggplot2::theme_minimal(base_size = base_size, base_family = base_family) +
     ggplot2::theme(
       # Reunat & ruudukko
@@ -94,7 +85,7 @@ theme_fpb <- function(base_size = 12, base_family = "") {
       plot.margin         = grid::unit(c(0.6, 0.7, 0.5, 0.6), "cm"),
 
       ## Paletti
-      palette.fill.discrete = ggcustom_palettes[["fpb"]],
-      palette.colour.discrete = ggcustom_palettes[["fpb"]]
+      palette.fill.discrete = fpb_pal,
+      palette.colour.discrete = fpb_pal
     )
 }

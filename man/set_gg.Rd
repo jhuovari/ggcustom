@@ -15,7 +15,10 @@ unset_gg()
 \item{palette}{Optional palette function or the name of a ggcustom palette.
 See \code{names(ggcustom_palettes)}. If `NULL`, the supplied `theme`
 should already provide palette information (for example via
-`palette.discrete.*` theme entries).}
+`palette.<aes>.discrete` theme entries, e.g. `palette.colour.discrete`).
+When given, it is also used to set the default fill/colour of the
+`bar`, `col`, `point`, `text` and `line` geoms to the palette's first
+colour.}
 }
 \description{
 Set a custom theme and palette defaults using ggcustom. Updates `theme` and

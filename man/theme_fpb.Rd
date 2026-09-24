@@ -12,7 +12,10 @@ theme_fpb(base_size = 12, base_family = "")
 \item{base_family}{a font}
 }
 \description{
-Theme FPB. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete palette defaults via ggplot2 theme entries and geom defaults from \code{\link{fpb_pal}}
+Theme FPB. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete colour
+and fill palette defaults to \code{\link{fpb_pal}} via ggplot2 4.0.0 theme
+entries. Does not change geom defaults by itself; use
+\code{\link{set_gg}} (with \code{palette = "fpb"}) for that.
 }
 \examples{
 library(ggplot2)

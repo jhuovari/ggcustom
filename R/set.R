@@ -11,7 +11,10 @@
 #' @param palette Optional palette function or the name of a ggcustom palette.
 #'    See \code{names(ggcustom_palettes)}. If `NULL`, the supplied `theme`
 #'    should already provide palette information (for example via
-#'    `palette.discrete.*` theme entries).
+#'    `palette.<aes>.discrete` theme entries, e.g. `palette.colour.discrete`).
+#'    When given, it is also used to set the default fill/colour of the
+#'    `bar`, `col`, `point`, `text` and `line` geoms to the palette's first
+#'    colour.
 #' @export
 set_gg <- function(theme, palette = NULL) {
 
@@ -34,12 +37,15 @@ set_gg <- function(theme, palette = NULL) {
     }
 
     # Combine theme with palette defaults introduced in ggplot2 4.0.0
+    # (ggplot2's theme() treats "color" and "colour" element names as
+    # aliases, so only the "colour" spelling needs to be set here)
     theme <- theme +
       ggplot2::theme(
-        palette.discrete.fill = pal,
-        palette.discrete.colour = pal,
-        palette.discrete.color = pal
+        palette.fill.discrete = pal,
+        palette.colour.discrete = pal
       )
+
+    set_geom_defaults(pal)
   }
 
   was_set <- isTRUE(get0("is_set", .ggcustom_state, inherits = FALSE))
@@ -47,6 +53,9 @@ set_gg <- function(theme, palette = NULL) {
 
   if (!was_set) {
     assign("old_theme", previous_theme, envir = .ggcustom_state)
+  }
+  if (!is.null(palette)) {
+    assign("geom_defaults_changed", TRUE, envir = .ggcustom_state)
   }
   assign("is_set", TRUE, envir = .ggcustom_state)
 
@@ -62,9 +71,27 @@ unset_gg <- function() {
   if (isTRUE(get0("is_set", .ggcustom_state, inherits = FALSE))) {
     old_theme <- get0("old_theme", .ggcustom_state, inherits = FALSE)
     ggplot2::theme_set(old_theme)
-    rm(list = c("old_theme", "is_set"), envir = .ggcustom_state)
+    if (isTRUE(get0("geom_defaults_changed", .ggcustom_state, inherits = FALSE))) {
+      ggplot2::reset_geom_defaults()
+    }
+    rm(list = intersect(c("old_theme", "is_set", "geom_defaults_changed"),
+                         ls(.ggcustom_state)),
+       envir = .ggcustom_state)
     message("ggcustom unset.")
   }
+}
+
+# Set default fill/colour of the bar, col, point, text and line geoms to
+# the first colour of `pal`. Used by set_gg()/set_vm() so that the
+# side effect only happens when a theme and palette are actually applied,
+# not merely when a theme object such as theme_vm() is constructed.
+set_geom_defaults <- function(pal) {
+  ggplot2::update_geom_defaults("bar", list(fill = pal(1)))
+  ggplot2::update_geom_defaults("col", list(fill = pal(1)))
+  ggplot2::update_geom_defaults("point", list(size = 4, colour = pal(1)))
+  ggplot2::update_geom_defaults("text", list(size = 4, colour = pal(1)))
+  ggplot2::update_geom_defaults("line", list(linewidth = 1.5, colour = pal(1)))
+  invisible(NULL)
 }
 
 
@@ -99,5 +126,5 @@ unset_gg <- function() {
 #' unset_gg()
 
 set_vm <- function() {
-  set_gg(theme_vm())
+  set_gg(theme_vm(), palette = "vm")
 }
