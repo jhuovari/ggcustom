@@ -45,7 +45,6 @@ gg_translate <- function(plot, trans) {
   }
 }
 
-
 #' Internal helper for gg_translate
 #'
 #' Translates data, labels, scales, and facets inside a single ggplot object.
