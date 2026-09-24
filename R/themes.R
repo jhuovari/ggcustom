@@ -27,8 +27,12 @@ theme_vm <- function(base_size = 12, base_family = "") {
       strip.background = ggplot2::element_blank(),
       axis.line.x.bottom = ggplot2::element_line(),
       axis.line.x.top = ggplot2::element_line(),
-      palette.fill.discrete = vm_pal,
-      palette.colour.discrete = vm_pal
+      # A single-argument closure with no default for `n`: passing vm_pal
+      # itself (whose no-argument form defaults n to NULL, to return the
+      # full palette) makes ggplot2's theme palette entry raise "has NULL
+      # property without default: n".
+      palette.fill.discrete = function(n) vm_pal(n),
+      palette.colour.discrete = function(n) vm_pal(n)
     )
 }
 
@@ -85,7 +89,7 @@ theme_fpb <- function(base_size = 12, base_family = "") {
       plot.margin         = grid::unit(c(0.6, 0.7, 0.5, 0.6), "cm"),
 
       ## Paletti
-      palette.fill.discrete = fpb_pal,
-      palette.colour.discrete = fpb_pal
+      palette.fill.discrete = function(n) fpb_pal(n),
+      palette.colour.discrete = function(n) fpb_pal(n)
     )
 }

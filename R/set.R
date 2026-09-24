@@ -29,9 +29,13 @@ set_gg <- function(theme, palette = NULL) {
       stop(paste(palette, "is not a valid palette name for ggcustom_pal"))
     }
 
-    # Define palette function
+    # Define palette function. Always wrap it in a single-argument closure
+    # with no default for `n`: ggplot2's theme palette entries inspect the
+    # function's formals, and a default of NULL for `n` (as in vm_pal()/
+    # fpb_pal(), whose no-argument form returns the full palette) is read
+    # as "no usable value", raising "has NULL property without default: n".
     pal <- if (is.function(palette)) {
-      palette
+      function(n) palette(n)
     } else {
       function(n) ggcustom_pal(n, palette)
     }
