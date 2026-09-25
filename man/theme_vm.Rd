@@ -14,8 +14,10 @@ theme_vm(base_size = 12, base_family = "")
 \description{
 Theme VM. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete colour
 and fill palette defaults to \code{\link{vm_pal}} via ggplot2 4.0.0 theme
-entries. Does not change geom defaults by itself; use
-\code{\link{set_vm}} or \code{\link{set_gg}} for that.
+entries, and sets the default fill/colour and size of layer geoms (bar,
+col, point, text, line) to match the VM palette via the \code{geom} theme
+entry introduced in ggplot2 4.0.0 (\code{\link[ggplot2]{element_geom}}) -
+no \code{update_geom_defaults()} side effect.
 }
 \examples{
 library(ggplot2)
