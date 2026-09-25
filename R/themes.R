@@ -4,8 +4,10 @@
 #'
 #' Theme VM. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete colour
 #' and fill palette defaults to \code{\link{vm_pal}} via ggplot2 4.0.0 theme
-#' entries, and sets the default fill/colour and size of the `bar`, `col`,
-#' `point`, `text` and `line` geoms to match the VM palette.
+#' entries, and sets the default fill/colour and size of layer geoms (bar,
+#' col, point, text, line) to match the VM palette via the `geom` theme
+#' entry introduced in ggplot2 4.0.0 (\code{\link[ggplot2]{element_geom}}) -
+#' no \code{update_geom_defaults()} side effect.
 #'
 #' @param base_size a font size
 #' @param base_family a font
@@ -17,11 +19,6 @@
 #' p + theme_vm()
 
 theme_vm <- function(base_size = 12, base_family = "") {
-  # Set default colors/sizes for geoms using the first color in the VM
-  # palette, matching the plot even when theme_vm() is used directly
-  # (i.e. without going through set_vm()/set_gg()).
-  set_geom_defaults(vm_pal)
-
   # Apply the theme modifications
   ggplot2::theme_bw(base_size = base_size, base_family = base_family) +
     ggplot2::theme(
@@ -32,6 +29,17 @@ theme_vm <- function(base_size = 12, base_family = "") {
       strip.background = ggplot2::element_blank(),
       axis.line.x.bottom = ggplot2::element_line(),
       axis.line.x.top = ggplot2::element_line(),
+      # Default fill/colour/size for layer geoms, sourced from the theme
+      # itself (ggplot2 4.0.0) instead of a global update_geom_defaults()
+      # side effect. Matches the previous bar/col fill, point/text/line
+      # colour = vm_pal(1), point/text size = 4, line linewidth = 1.5.
+      geom = ggplot2::element_geom(
+        colour = vm_pal(1),
+        fill = vm_pal(1),
+        linewidth = 1.5,
+        pointsize = 4,
+        fontsize = 4
+      ),
       # A single-argument closure with no default for `n`: passing vm_pal
       # itself (whose no-argument form defaults n to NULL, to return the
       # full palette) makes ggplot2's theme palette entry raise "has NULL
@@ -46,8 +54,10 @@ theme_vm <- function(base_size = 12, base_family = "") {
 #'
 #' Theme FPB. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete colour
 #' and fill palette defaults to \code{\link{fpb_pal}} via ggplot2 4.0.0 theme
-#' entries, and sets the default fill/colour and size of the `bar`, `col`,
-#' `point`, `text` and `line` geoms to match the FPB palette.
+#' entries, and sets the default fill/colour and size of layer geoms (bar,
+#' col, point, text, line) to match the FPB palette via the `geom` theme
+#' entry introduced in ggplot2 4.0.0 (\code{\link[ggplot2]{element_geom}}) -
+#' no \code{update_geom_defaults()} side effect.
 #'
 #' @param base_size a font size
 #' @param base_family a font
@@ -59,11 +69,6 @@ theme_vm <- function(base_size = 12, base_family = "") {
 #' p + theme_fpb()
 
 theme_fpb <- function(base_size = 12, base_family = "") {
-  # Set default colors/sizes for geoms using the first color in the FPB
-  # palette, matching the plot even when theme_fpb() is used directly
-  # (i.e. without going through set_gg()).
-  set_geom_defaults(fpb_pal)
-
   ggplot2::theme_minimal(base_size = base_size, base_family = base_family) +
     ggplot2::theme(
       # Reunat & ruudukko
@@ -97,6 +102,18 @@ theme_fpb <- function(base_size = 12, base_family = "") {
       plot.subtitle       = ggplot2::element_text(colour = "grey40"),
       plot.caption        = ggplot2::element_text(size = ggplot2::rel(0.8), colour = "grey40"),
       plot.margin         = grid::unit(c(0.6, 0.7, 0.5, 0.6), "cm"),
+
+      # Default fill/colour/size for layer geoms, sourced from the theme
+      # itself (ggplot2 4.0.0) instead of a global update_geom_defaults()
+      # side effect. Matches the previous bar/col fill, point/text/line
+      # colour = fpb_pal(1), point/text size = 4, line linewidth = 1.5.
+      geom = ggplot2::element_geom(
+        colour = fpb_pal(1),
+        fill = fpb_pal(1),
+        linewidth = 1.5,
+        pointsize = 4,
+        fontsize = 4
+      ),
 
       ## Paletti
       palette.fill.discrete = function(n) fpb_pal(n),

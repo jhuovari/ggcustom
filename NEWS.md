@@ -18,11 +18,14 @@
 * `theme_vm()` and `theme_fpb()` no longer call `update_geom_defaults()` as
   a side effect of simply constructing the theme object. Building or
   combining these themes (e.g. `p + theme_vm()`) no longer mutates global
-  geom defaults.
-* Geom defaults (`bar`/`col` fill, `point`/`text`/`line` colour) are now
-  set explicitly by `set_gg()`/`set_vm()` when a `palette` is applied, and
-  are restored by `unset_gg()` (via `ggplot2::reset_geom_defaults()`)
-  alongside the previous theme.
+  geom defaults. Instead, the bar/col fill, point/text/line colour and
+  size (including `geom_line`'s `linewidth = 1.5`) are set via the `geom`
+  theme entry introduced in ggplot2 4.0.0 (`ggplot2::element_geom()`), so
+  `p + theme_vm()` alone still renders with the palette's look.
+* Geom defaults are also set explicitly by `set_gg()`/`set_vm()` when a
+  `palette` is applied (for themes that don't set their own `geom` theme
+  entry), and are restored by `unset_gg()` (via
+  `ggplot2::reset_geom_defaults()`) alongside the previous theme.
 * Removed the unused `Remotes: pttry/ggptt` entry from `DESCRIPTION`.
 
 ## Tests

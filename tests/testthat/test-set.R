@@ -47,28 +47,41 @@ test_that("set_vm applies the VM theme, palette and geom defaults", {
   expect_identical(ggplot2::GeomPoint$default_aes$colour, vm_pal(1))
 })
 
-test_that("theme_vm()/theme_fpb() set geom defaults to match their palette", {
-  # theme_vm()/theme_fpb() are used directly (p + theme_vm()), without
-  # going through set_vm()/set_gg(), so they must set the bar/col/point/
-  # text/line geom defaults themselves for the plot to match the palette.
-  with_geom_reset <- function(expr) {
-    on.exit(ggplot2::reset_geom_defaults(), add = TRUE)
-    force(expr)
-  }
+test_that("theme_vm()/theme_fpb() are pure and don't touch geom defaults", {
+  # theme_vm()/theme_fpb() now set geom appearance via the `geom` theme
+  # entry (ggplot2::element_geom(), ggplot2 >= 4.0.0), not via
+  # update_geom_defaults(), so simply constructing them must not mutate
+  # global geom defaults.
+  original_point_colour <- ggplot2::GeomPoint$default_aes$colour
+  original_bar_fill <- ggplot2::GeomBar$default_aes$fill
 
-  with_geom_reset({
-    invisible(theme_vm())
-    expect_identical(ggplot2::GeomPoint$default_aes$colour, vm_pal(1))
-    expect_identical(ggplot2::GeomLine$default_aes$linewidth, 1.5)
-    expect_identical(ggplot2::GeomBar$default_aes$fill, vm_pal(1))
-  })
+  invisible(theme_vm())
+  invisible(theme_fpb())
 
-  with_geom_reset({
-    invisible(theme_fpb())
-    expect_identical(ggplot2::GeomPoint$default_aes$colour, fpb_pal(1))
-    expect_identical(ggplot2::GeomLine$default_aes$linewidth, 1.5)
-    expect_identical(ggplot2::GeomBar$default_aes$fill, fpb_pal(1))
-  })
+  expect_identical(ggplot2::GeomPoint$default_aes$colour, original_point_colour)
+  expect_identical(ggplot2::GeomBar$default_aes$fill, original_bar_fill)
+})
+
+test_that("theme_vm()/theme_fpb() render bar/point/line geoms with their palette", {
+  # Build actual plots so this exercises ggplot2's `geom = element_geom()`
+  # theme entry end-to-end, not just the value stored on the theme object.
+  point_built <- ggplot2::ggplot_build(
+    ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg)) +
+      ggplot2::geom_point() + theme_vm()
+  )
+  expect_identical(unique(point_built$data[[1]]$colour), vm_pal(1))
+
+  line_built <- ggplot2::ggplot_build(
+    ggplot2::ggplot(mtcars, ggplot2::aes(wt, mpg)) +
+      ggplot2::geom_line() + theme_vm()
+  )
+  expect_identical(unique(line_built$data[[1]]$linewidth), 1.5)
+
+  bar_built <- ggplot2::ggplot_build(
+    ggplot2::ggplot(mtcars, ggplot2::aes(factor(cyl))) +
+      ggplot2::geom_bar() + theme_fpb()
+  )
+  expect_identical(unique(bar_built$data[[1]]$fill), fpb_pal(1))
 })
 
 test_that("plots using theme_vm()/theme_fpb() build without error", {
