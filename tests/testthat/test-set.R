@@ -47,15 +47,28 @@ test_that("set_vm applies the VM theme, palette and geom defaults", {
   expect_identical(ggplot2::GeomPoint$default_aes$colour, vm_pal(1))
 })
 
-test_that("theme_vm()/theme_fpb() are pure and don't touch geom defaults", {
-  original_point_colour <- ggplot2::GeomPoint$default_aes$colour
-  original_bar_fill <- ggplot2::GeomBar$default_aes$fill
+test_that("theme_vm()/theme_fpb() set geom defaults to match their palette", {
+  # theme_vm()/theme_fpb() are used directly (p + theme_vm()), without
+  # going through set_vm()/set_gg(), so they must set the bar/col/point/
+  # text/line geom defaults themselves for the plot to match the palette.
+  with_geom_reset <- function(expr) {
+    on.exit(ggplot2::reset_geom_defaults(), add = TRUE)
+    force(expr)
+  }
 
-  invisible(theme_vm())
-  invisible(theme_fpb())
+  with_geom_reset({
+    invisible(theme_vm())
+    expect_identical(ggplot2::GeomPoint$default_aes$colour, vm_pal(1))
+    expect_identical(ggplot2::GeomLine$default_aes$linewidth, 1.5)
+    expect_identical(ggplot2::GeomBar$default_aes$fill, vm_pal(1))
+  })
 
-  expect_identical(ggplot2::GeomPoint$default_aes$colour, original_point_colour)
-  expect_identical(ggplot2::GeomBar$default_aes$fill, original_bar_fill)
+  with_geom_reset({
+    invisible(theme_fpb())
+    expect_identical(ggplot2::GeomPoint$default_aes$colour, fpb_pal(1))
+    expect_identical(ggplot2::GeomLine$default_aes$linewidth, 1.5)
+    expect_identical(ggplot2::GeomBar$default_aes$fill, fpb_pal(1))
+  })
 })
 
 test_that("plots using theme_vm()/theme_fpb() build without error", {

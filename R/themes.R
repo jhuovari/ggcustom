@@ -4,8 +4,8 @@
 #'
 #' Theme VM. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete colour
 #' and fill palette defaults to \code{\link{vm_pal}} via ggplot2 4.0.0 theme
-#' entries. Does not change geom defaults by itself; use
-#' \code{\link{set_vm}} or \code{\link{set_gg}} for that.
+#' entries, and sets the default fill/colour and size of the `bar`, `col`,
+#' `point`, `text` and `line` geoms to match the VM palette.
 #'
 #' @param base_size a font size
 #' @param base_family a font
@@ -17,6 +17,11 @@
 #' p + theme_vm()
 
 theme_vm <- function(base_size = 12, base_family = "") {
+  # Set default colors/sizes for geoms using the first color in the VM
+  # palette, matching the plot even when theme_vm() is used directly
+  # (i.e. without going through set_vm()/set_gg()).
+  set_geom_defaults(vm_pal)
+
   # Apply the theme modifications
   ggplot2::theme_bw(base_size = base_size, base_family = base_family) +
     ggplot2::theme(
@@ -41,8 +46,8 @@ theme_vm <- function(base_size = 12, base_family = "") {
 #'
 #' Theme FPB. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete colour
 #' and fill palette defaults to \code{\link{fpb_pal}} via ggplot2 4.0.0 theme
-#' entries. Does not change geom defaults by itself; use
-#' \code{\link{set_gg}} (with \code{palette = "fpb"}) for that.
+#' entries, and sets the default fill/colour and size of the `bar`, `col`,
+#' `point`, `text` and `line` geoms to match the FPB palette.
 #'
 #' @param base_size a font size
 #' @param base_family a font
@@ -54,6 +59,11 @@ theme_vm <- function(base_size = 12, base_family = "") {
 #' p + theme_fpb()
 
 theme_fpb <- function(base_size = 12, base_family = "") {
+  # Set default colors/sizes for geoms using the first color in the FPB
+  # palette, matching the plot even when theme_fpb() is used directly
+  # (i.e. without going through set_gg()).
+  set_geom_defaults(fpb_pal)
+
   ggplot2::theme_minimal(base_size = base_size, base_family = base_family) +
     ggplot2::theme(
       # Reunat & ruudukko
