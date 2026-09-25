@@ -13,11 +13,11 @@ scale functions.
 To install `ggcustom` directly from GitHub, use the `devtools` package:
 
 ``` r
-# Install devtools if not already installed
-install.packages("devtools")
+# Install pak if not already installed
+install.packages("remotes")
 
 # Install ggcustom from GitHub
-devtools::install_github("jhuovari/ggcustom")
+remotes::install_github("jhuovari/ggcustom")
 ```
 
 # Overview
@@ -67,7 +67,7 @@ ggplot(dsamp, aes(carat, price, colour = clarity)) +
   scale_colour_vm()
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" alt="" width="100%" />
 
 You can also use the fill scale for bar plots or other filled
 geometries:
@@ -78,7 +78,7 @@ ggplot(dsamp, aes(clarity, fill = clarity)) +
   scale_fill_vm()
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" alt="" width="100%" />
 
 # VM Theme
 
@@ -94,7 +94,7 @@ p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
 p + theme_vm()
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" alt="" width="100%" />
 
 # Theme Finnish Productivity Board
 
@@ -109,7 +109,7 @@ p <- txhousing |>
 p + theme_fpb()
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" alt="" width="100%" />
 
 ### Setting Custom Theme and Palette with `set_gg()`
 
@@ -139,7 +139,7 @@ p <- ggplot(data, aes(x = category, y = value, colour = factor(group), group = g
 p
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" alt="" width="100%" />
 
 ``` r
 # Set the VM theme (palette defaults come from the theme itself)
@@ -149,7 +149,7 @@ set_gg(theme_vm())
 p
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-2.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-7-2.png" alt="" width="100%" />
 
 ``` r
 # Optionally, reset to the original theme
@@ -163,7 +163,7 @@ unset_gg()
 p
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-3.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-7-3.png" alt="" width="100%" />
 
 # Additional Palettes and Themes
 
@@ -179,7 +179,7 @@ ggplot(mtcars, aes(mpg, wt, color = factor(cyl))) +
   theme_vm()
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" alt="" width="100%" />
 
 ``` r
 # Bar plot with VM fill scale
@@ -188,7 +188,7 @@ ggplot(mpg, aes(class, fill = class)) +
   theme_vm()
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" alt="" width="100%" />
 
 ## Theme helpers
 
@@ -216,7 +216,7 @@ p <- ggplot(mtcars, aes(factor(cyl), mpg, fill = factor(gear))) +
 p + the_x45() + the_legend_bot() + the_title_blank("xy")
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" alt="" width="100%" />
 
 ## gg_translate — Translate ggplot2 and patchwork plots
 
@@ -258,7 +258,7 @@ trans <- c(
 gg_translate(p, trans)
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" alt="" width="100%" />
 
 # Contributing
 

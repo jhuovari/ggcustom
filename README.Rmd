@@ -21,11 +21,11 @@ knitr::opts_chunk$set(
 To install `ggcustom` directly from GitHub, use the `devtools` package:
 
 ```r
-# Install devtools if not already installed
-install.packages("devtools")
+# Install pak if not already installed
+install.packages("remotes")
 
 # Install ggcustom from GitHub
-devtools::install_github("jhuovari/ggcustom")
+remotes::install_github("jhuovari/ggcustom")
 
 ```
 

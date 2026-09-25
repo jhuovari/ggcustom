@@ -15,7 +15,7 @@ theme_fpb(base_size = 12, base_family = "")
 Theme FPB. Based on \code{\link[ggplot2]{theme_bw}}. Sets discrete colour
 and fill palette defaults to \code{\link{fpb_pal}} via ggplot2 4.0.0 theme
 entries, and sets the default fill/colour and size of layer geoms (bar,
-col, point, text, line) to match the FPB palette via the \code{geom} theme
+col, point, text, line) to match the FPB palette via the `geom` theme
 entry introduced in ggplot2 4.0.0 (\code{\link[ggplot2]{element_geom}}) -
 no \code{update_geom_defaults()} side effect.
 }
